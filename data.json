@@ -7,7 +7,15 @@
       "category": "Homelessness",
       "status": "in_progress",
       "target_deadline": "2026-06-15",
-      "last_update": "2026-02-20"
+      "last_update": "2026-05-29"
+    },
+    {
+      "id": "KW-4000",
+      "promise": "Open 4,000 emergency housing and shelter units within four years.",
+      "category": "Homelessness",
+      "status": "pending",
+      "target_deadline": "2029-12-31",
+      "last_update": "2026-05-29"
     },
     {
       "id": "KW-K8",
@@ -15,7 +23,7 @@
       "category": "Education",
       "status": "pending",
       "target_deadline": "",
-      "last_update": "2026-02-20"
+      "last_update": "2026-05-29"
     }
   ]
 }
