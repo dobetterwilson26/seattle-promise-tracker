@@ -1,7 +1,7 @@
 {
   "subject": "Mayor Katie Wilson",
   "jurisdiction": "Seattle, WA",
-  "methodology": "Includes only promises with measurable numeric targets, defined actions, or event-based deadlines based on public reporting and official communications.",
+  "methodology": "Includes only measurable commitments with numeric targets, defined actions, or event-based deadlines.",
   "promises": [
     {
       "id": "KW-001",
@@ -82,37 +82,26 @@
       "source_url": "https://wilson.seattle.gov/2026/02/17/mayor-wilsons-2026-state-of-the-city-address/"
     },
     {
-      "id": "KW-007",
-      "promise": "Introduce legislation to fund and accelerate shelter expansion.",
-      "category": "Homelessness",
-      "metric": "Shelter expansion legislation introduced",
+      "id": "KW-SURV-REMOVE",
+      "promise": "Remove existing police surveillance cameras and halt further expansion of city surveillance systems.",
+      "category": "Public Safety",
+      "metric": "Number of surveillance cameras removed and no new cameras installed",
+      "target_value": 0,
+      "current_value": null,
+      "target_deadline": null,
+      "status": "pending",
+      "source_url": "ADD_SOURCE_URL_HERE"
+    },
+    {
+      "id": "KW-K8-SUMMER",
+      "promise": "Implement universal free summer camp for all K–8 students in Seattle.",
+      "category": "Education",
+      "metric": "Universal free K-8 summer camp program operational",
       "target_value": 1,
       "current_value": 0,
       "target_deadline": null,
-      "status": "in_progress",
-      "source_url": "https://wilson.seattle.gov/2026/02/17/mayor-wilsons-2026-state-of-the-city-address/"
-    },
-    {
-      "id": "KW-008",
-      "promise": "Launch an interdepartmental team to accelerate emergency shelter expansion.",
-      "category": "Homelessness",
-      "metric": "Formal interdepartmental team established",
-      "target_value": 1,
-      "current_value": 1,
-      "target_deadline": "2026-01-15",
-      "status": "completed",
-      "source_url": "https://wilson.seattle.gov/2026/01/15/mayor-wilson-announces-executive-orders-to-accelerate-shelter-and-improve-transit/"
-    },
-    {
-      "id": "KW-009",
-      "promise": "Identify and prioritize city-owned land for emergency shelter sites.",
-      "category": "Homelessness",
-      "metric": "Public list of prioritized shelter sites released",
-      "target_value": 1,
-      "current_value": 0,
-      "target_deadline": null,
-      "status": "in_progress",
-      "source_url": "https://wilson.seattle.gov/2026/01/15/mayor-wilson-announces-executive-orders-to-accelerate-shelter-and-improve-transit/"
+      "status": "pending",
+      "source_url": "ADD_SOURCE_URL_HERE"
     }
   ]
 }
