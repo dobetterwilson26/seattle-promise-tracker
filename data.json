@@ -1,29 +1,118 @@
 {
   "subject": "Mayor Katie Wilson",
+  "jurisdiction": "Seattle, WA",
+  "methodology": "Includes only promises with measurable numeric targets, defined actions, or event-based deadlines based on public reporting and official communications.",
   "promises": [
     {
-      "id": "KW-FIFA-500",
-      "promise": "Create 500 new shelter units before FIFA.",
+      "id": "KW-001",
+      "promise": "Open 4,000 new emergency housing and shelter units within four years.",
       "category": "Homelessness",
-      "status": "in_progress",
-      "target_deadline": "2026-06-15",
-      "last_update": "2026-05-29"
-    },
-    {
-      "id": "KW-4000",
-      "promise": "Open 4,000 emergency housing and shelter units within four years.",
-      "category": "Homelessness",
-      "status": "pending",
+      "metric": "Number of new emergency housing/shelter units opened",
+      "target_value": 4000,
+      "current_value": 0,
       "target_deadline": "2029-12-31",
-      "last_update": "2026-05-29"
+      "status": "pending",
+      "source_url": "https://www.wilsonforseattle.com/homelessness"
     },
     {
-      "id": "KW-K8",
-      "promise": "Universal free K-8 summer camp.",
-      "category": "Education",
+      "id": "KW-002",
+      "promise": "Add 1,000 new shelter or housing units during calendar year 2026.",
+      "category": "Homelessness",
+      "metric": "Number of new shelter/housing units added in 2026",
+      "target_value": 1000,
+      "current_value": 0,
+      "target_deadline": "2026-12-31",
+      "status": "in_progress",
+      "source_url": "https://wilson.seattle.gov/2026/02/17/mayor-wilsons-2026-state-of-the-city-address/"
+    },
+    {
+      "id": "KW-FIFA-500",
+      "promise": "Create 500 new shelter units (tiny homes, RV spaces, apartments) before the first 2026 FIFA World Cup match at Lumen Field.",
+      "category": "Homelessness",
+      "metric": "Number of new shelter units created",
+      "target_value": 500,
+      "current_value": 0,
+      "unit_type": ["tiny_home", "rv_space", "apartment"],
+      "target_deadline": "2026-06-15",
+      "status": "in_progress",
+      "source_url": "https://www.politico.com/news/2026/01/31/world-cup-seattle-housing-00749371"
+    },
+    {
+      "id": "KW-003",
+      "promise": "Implement a dedicated bus lane and transit improvements on Denny Way.",
+      "category": "Transportation",
+      "metric": "Completion of Denny Way bus lane project",
+      "target_value": 1,
+      "current_value": 0,
+      "target_deadline": null,
+      "status": "in_progress",
+      "source_url": "https://wilson.seattle.gov/2026/01/15/mayor-wilson-announces-executive-orders-to-accelerate-shelter-and-improve-transit/"
+    },
+    {
+      "id": "KW-004",
+      "promise": "Pursue a $1 billion affordable housing bond.",
+      "category": "Housing",
+      "metric": "Affordable housing bond introduced and passed",
+      "target_value": 1000000000,
+      "current_value": 0,
+      "target_deadline": null,
       "status": "pending",
-      "target_deadline": "",
-      "last_update": "2026-05-29"
+      "source_url": "https://www.wilsonforseattle.com/housing"
+    },
+    {
+      "id": "KW-005",
+      "promise": "Renew the Seattle Transportation Benefit District in 2026 to expand bus service.",
+      "category": "Transportation",
+      "metric": "STBD renewal placed on ballot and approved",
+      "target_value": 1,
+      "current_value": 0,
+      "target_deadline": "2026-12-31",
+      "status": "pending",
+      "source_url": "https://www.wilsonforseattle.com/transportation"
+    },
+    {
+      "id": "KW-006",
+      "promise": "Increase Fresh Bucks monthly benefit and eliminate the waitlist.",
+      "category": "Affordability",
+      "metric": "Fresh Bucks benefit increase implemented and waitlist cleared",
+      "target_value": 1,
+      "current_value": 0,
+      "target_deadline": null,
+      "status": "in_progress",
+      "source_url": "https://wilson.seattle.gov/2026/02/17/mayor-wilsons-2026-state-of-the-city-address/"
+    },
+    {
+      "id": "KW-007",
+      "promise": "Introduce legislation to fund and accelerate shelter expansion.",
+      "category": "Homelessness",
+      "metric": "Shelter expansion legislation introduced",
+      "target_value": 1,
+      "current_value": 0,
+      "target_deadline": null,
+      "status": "in_progress",
+      "source_url": "https://wilson.seattle.gov/2026/02/17/mayor-wilsons-2026-state-of-the-city-address/"
+    },
+    {
+      "id": "KW-008",
+      "promise": "Launch an interdepartmental team to accelerate emergency shelter expansion.",
+      "category": "Homelessness",
+      "metric": "Formal interdepartmental team established",
+      "target_value": 1,
+      "current_value": 1,
+      "target_deadline": "2026-01-15",
+      "status": "completed",
+      "source_url": "https://wilson.seattle.gov/2026/01/15/mayor-wilson-announces-executive-orders-to-accelerate-shelter-and-improve-transit/"
+    },
+    {
+      "id": "KW-009",
+      "promise": "Identify and prioritize city-owned land for emergency shelter sites.",
+      "category": "Homelessness",
+      "metric": "Public list of prioritized shelter sites released",
+      "target_value": 1,
+      "current_value": 0,
+      "target_deadline": null,
+      "status": "in_progress",
+      "source_url": "https://wilson.seattle.gov/2026/01/15/mayor-wilson-announces-executive-orders-to-accelerate-shelter-and-improve-transit/"
     }
   ]
 }
