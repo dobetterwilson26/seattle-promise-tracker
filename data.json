@@ -1,0 +1,21 @@
+{
+  "subject": "Mayor Katie Wilson",
+  "promises": [
+    {
+      "id": "KW-FIFA-500",
+      "promise": "Create 500 new shelter units before FIFA.",
+      "category": "Homelessness",
+      "status": "in_progress",
+      "target_deadline": "2026-06-15",
+      "last_update": "2026-02-20"
+    },
+    {
+      "id": "KW-K8",
+      "promise": "Universal free K-8 summer camp.",
+      "category": "Education",
+      "status": "pending",
+      "target_deadline": "",
+      "last_update": "2026-02-20"
+    }
+  ]
+}
