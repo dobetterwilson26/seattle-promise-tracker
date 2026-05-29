@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Seattle Promise Tracker</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 20px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      border: 1px solid #ddd;
+      padding: 10px;
+      text-align: left;
+    }
+
+    th {
+      background: #f5f5f5;
+    }
+
+    .completed {
+      color: green;
+      font-weight: bold;
+    }
+
+    .pending {
+      color: orange;
+      font-weight: bold;
+    }
+
+    .in_progress {
+      color: blue;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Seattle Promise Tracker</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Promise</th>
+      <th>Category</th>
+      <th>Status</th>
+      <th>Deadline</th>
+      <th>Last Update</th>
+    </tr>
+  </thead>
+  <tbody id="promiseTable"></tbody>
+</table>
+
+<script src="app.js"></script>
+
+</body>
+</html>
