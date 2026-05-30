@@ -1,252 +1,166 @@
-<!DOCTYPE html>
 
-<html>
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<title>Seattle Promise Tracker</title>
-
-<style>
-body{
-  margin:0;
-  background:#f4f6f9;
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-}
-.hero{
-  background:#1f3b6d;
-  color:white;
-  padding:60px 40px;
+async function loadData() {
+  const res = await fetch('./data.json', { cache: 'no-store' });
+  if (!res.ok) throw new Error('Could not load data.json');
+  return res.json();
 }
 
-.hero-inner{
-  max-width:1200px;
-  margin:auto;
+function statusLabel(status){
+  const map = {
+    in_progress: 'In progress',
+    completed: 'Completed',
+    broken: 'Broken',
+    stalled: 'Stalled',
+    pending: 'Pending'
+  };
+  return map[status] || status;
 }
 
-.hero h1{
-  font-size:64px;
-  line-height:1.05;
-  margin:10px 0 20px;
+function computeScore(promises){
+  const total = promises.length || 1;
+  const completed = promises.filter(p => p.status === 'completed').length;
+  const broken = promises.filter(p => p.status === 'broken').length;
+
+  // Simple “accountability score” heuristic:
+  // completed adds +1, broken subtracts 1, normalized to 0..100.
+  let raw = (completed - broken) / total;
+  let pct = Math.round((raw + 1) * 50); // maps [-1..1] -> [0..100]
+  pct = Math.max(0, Math.min(100, pct));
+
+  let label = 'Mixed';
+  if (pct >= 67) label = 'Strong';
+  else if (pct >= 34) label = 'Moderate';
+  else label = 'Weak';
+
+  return { pct, label, completed, broken, total };
 }
 
-.hero p{
-  font-size:28px;
-  max-width:900px;
-  opacity:.95;
+function setGauge(pct){
+  const gauge = document.querySelector('.gauge');
+  // red->green gradient feel by switching color at runtime:
+  const color = pct >= 67 ? '#27ae60' : (pct >= 34 ? '#1e95d6' : '#ef4b5a');
+  gauge.style.background = `conic-gradient(${color} 0deg, ${color} ${pct*3.6}deg, #e8eef7 ${pct*3.6}deg 360deg)`;
+  document.getElementById('scoreValue').textContent = `${pct}%`;
+
+  const pill = document.getElementById('scoreLabel');
+  pill.textContent = labelFromPct(pct);
+  if (pct >= 67){
+    pill.style.background = '#dcfce7'; pill.style.color = '#166534';
+  } else if (pct >= 34){
+    pill.style.background = '#dbeafe'; pill.style.color = '#1e40af';
+  } else {
+    pill.style.background = '#fee2e2'; pill.style.color = '#b4232d';
+  }
 }
 
-.eyebrow{
-  letter-spacing:3px;
-  font-size:14px;
-  font-weight:700;
+function labelFromPct(pct){
+  if (pct >= 67) return 'Strong';
+  if (pct >= 34) return 'Moderate';
+  return 'Weak';
 }
 
-.container{
-  max-width:1200px;
-  margin:auto;
-  padding:30px;
-}
+function renderCards(promises){
+  const total = promises.length;
+  const inProgress = promises.filter(p => p.status === 'in_progress').length;
+  const completed = promises.filter(p => p.status === 'completed').length;
+  const broken = promises.filter(p => p.status === 'broken').length;
 
-.score-card{
-  background:white;
-  color:#111827;
-  border-radius:24px;
-  padding:40px;
-  margin-bottom:30px;
-  box-shadow:0 4px 20px rgba(0,0,0,.08);
-}
+  const cards = [
+    { cls:'bg-total', label:'Total Promises', value: total, sub:'', icon:'◎' },
+    { cls:'bg-progress', label:'In Progress', value: inProgress, sub:'', icon:'◷' },
+    { cls:'bg-completed', label:'Completed', value: completed, sub:'', icon:'✓' },
+    { cls:'bg-broken', label:'Broken', value: broken, sub:'', icon:'✕' },
+  ];
 
-.score-number{
-  font-size:4rem;
-  font-weight:bold;
-}
-
-.stats{
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
-  gap:20px;
-  margin-bottom:40px;
-}
-
-.card{
-  color:white;
-  border-radius:20px;
-  padding:24px;
-  min-height:120px;
-
-}
-  .stats .card:nth-child(1){
-  background:#17355f;
-}
-
-.stats .card:nth-child(2){
-  background:#2d9cdb;
-}
-
-.stats .card:nth-child(3){
-  background:#2db56a;
-}
-
-.stats .card:nth-child(4){
-  background:#ef4b5f;
-}
-  border-radius:16px;
-  padding:20px;
-}
-
-.card-number{
-  font-size:2rem;
-  font-weight:bold;
-}
-
-.section-title{
-  font-size:1.5rem;
-  margin:30px 0 20px;
-}
-
-.goal-card{
-  background:white;
-  color:#111827;
-  padding:24px;
-  border-radius:20px;
-  margin-bottom:20px;
-  box-shadow:0 4px 20px rgba(0,0,0,.08);
-}
-.goal-title{
-  color:#111827;
-  font-weight:600;
-}
-
-.goal-percent{
-  color:#64748b;
-}
-
-.progress-bar{
-  background:#e5e7eb;
-}
-
-.progress-fill{
-  background:#22c55e;
-}
-
-table{
-  width:100%;
-  border-collapse:collapse;
-}
-
-th,td{
-  padding:12px;
-  border-bottom:1px solid #334155;
-  text-align:left;
-}
-
-.badge{
-  padding:5px 10px;
-  border-radius:999px;
-  font-size:.8rem;
-}
-
-.pending{
-  background:#78350f;
-}
-
-.in_progress{
-  background:#1e3a8a;
-}
-
-.completed{
-  background:#14532d;
-}
-
-</style>
-
-</head>
-
-<body>
-
-<div class="hero">
-  <div class="hero-inner">
-
-    <div class="eyebrow">
-      ACCOUNTABILITY TRACKER
+  const wrap = document.getElementById('summary-cards');
+  wrap.innerHTML = cards.map(c => `
+    <div class="card ${c.cls}">
+      <div>
+        <div class="label">${c.label}</div>
+        <div class="value">${c.value}</div>
+        <div class="sub">${c.sub}</div>
+      </div>
+      <div class="icon">${c.icon}</div>
     </div>
+  `).join('');
+}
 
-    <h1>
-      Mayor Katie Wilson Promise Tracker
-    </h1>
+function renderCategoryOptions(promises){
+  const categories = Array.from(new Set(promises.map(p => p.category))).sort();
+  const select = document.getElementById('categorySelect');
+  categories.forEach(cat => {
+    const opt = document.createElement('option');
+    opt.value = cat;
+    opt.textContent = cat;
+    select.appendChild(opt);
+  });
+}
 
-    <p>
-      I voted for Katie Wilson. I am disappointed.
-      She said "hold me accountable" so we are tracking
-      commitments, measuring progress, and posting receipts.
-    </p>
+function renderTable(promises){
+  const tbody = document.getElementById('promiseTbody');
+  tbody.innerHTML = promises.map(p => `
+    <tr>
+      <td><strong>${escapeHtml(p.promise)}</strong></td>
+      <td>${escapeHtml(p.category || '')}</td>
+      <td><span class="badge ${p.status}">${statusLabel(p.status)}</span></td>
+      <td>${escapeHtml(p.deadline || '')}</td>
+      <td>${escapeHtml(p.last_update || '')}</td>
+      <td>${p.source_url ? `<a href="${p.source_url}" target="_blank" rel="noopener">link</a>` : ''}</td>
+    </tr>
+  `).join('');
+}
 
-  </div>
-</div>
+function escapeHtml(str){
+  return (str || '').replace(/[&<>"']/g, (m) => ({
+    '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'
+  }[m]));
+}
 
-<div class="container">
+function applyFilters(allPromises){
+  const q = document.getElementById('searchInput').value.trim().toLowerCase();
+  const cat = document.getElementById('categorySelect').value;
+  const status = document.getElementById('statusSelect').value;
 
-  <div class="score-card">
-    <div>Accountability Score</div>
-    <div id="accountabilityScore" class="score-number">
-      0%
-    </div>
-  </div>
+  return allPromises.filter(p => {
+    const matchesQ =
+      !q ||
+      (p.promise || '').toLowerCase().includes(q) ||
+      (p.category || '').toLowerCase().includes(q);
 
-  <div class="stats">
+    const matchesCat = (cat === 'all') || (p.category === cat);
+    const matchesStatus = (status === 'all') || (p.status === status);
 
-    <div class="card">
-      <div>Total Promises</div>
-      <div id="totalPromises" class="card-number">0</div>
-    </div>
+    return matchesQ && matchesCat && matchesStatus;
+  });
+}
 
-    <div class="card">
-      <div>Completed</div>
-      <div id="completedPromises" class="card-number">0</div>
-    </div>
+async function main(){
+  const data = await loadData();
+  const promises = data.promises || [];
 
-    <div class="card">
-      <div>In Progress</div>
-      <div id="activePromises" class="card-number">0</div>
-    </div>
+  // header title personalization
+  document.title = `${data.subject || 'Mayor'} Promise Tracker`;
+  document.querySelector('h1').textContent = `${data.subject || 'Mayor'} Promise Tracker`;
 
-    <div class="card">
-      <div>Pending</div>
-      <div id="pendingPromises" class="card-number">0</div>
-    </div>
+  renderCards(promises);
 
-  </div>
+  const score = computeScore(promises);
+  setGauge(score.pct);
 
-  <h2 class="section-title">
-    Major Promises
-  </h2>
+  document.getElementById('scoreDesc').textContent =
+    `Based on ${score.completed} completed and ${score.broken} broken promises out of ${score.total} total commitments.`;
 
-  <div id="majorPromises"></div>
+  renderCategoryOptions(promises);
+  renderTable(promises);
 
-  <h2 class="section-title">
-    Full Tracker
-  </h2>
+  // Filters
+  const rerender = () => renderTable(applyFilters(promises));
+  document.getElementById('searchInput').addEventListener('input', rerender);
+  document.getElementById('categorySelect').addEventListener('change', rerender);
+  document.getElementById('statusSelect').addEventListener('change', rerender);
+}
 
-  <table>
-
-    <thead>
-      <tr>
-        <th>Promise</th>
-        <th>Category</th>
-        <th>Status</th>
-        <th>Deadline</th>
-      </tr>
-    </thead>
-
-    <tbody id="promiseTable"></tbody>
-
-  </table>
-
-</div>
-
-<script src="app.js"></script>
-
-</body>
-</html>
-
+main().catch(err => {
+  console.error(err);
+  alert('Error loading site data. Check data.json formatting.');
+});
