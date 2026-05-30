@@ -156,11 +156,6 @@ th,td{
 
 <body>
 
-<div class="container">
-
-<div class="hero">
-<body>
-
 <div class="hero">
   <div class="hero-inner">
 
@@ -183,64 +178,61 @@ th,td{
 
 <div class="container">
 
-<div class="stats">
-</div>
+  <div class="score-card">
+    <div>Accountability Score</div>
+    <div id="accountabilityScore" class="score-number">
+      0%
+    </div>
+  </div>
 
-<div class="score-card">
-<div>Accountability Score</div>
-<div id="accountabilityScore" class="score-number">
-0%
-</div>
-</div>
+  <div class="stats">
 
-<div class="stats">
+    <div class="card">
+      <div>Total Promises</div>
+      <div id="totalPromises" class="card-number">0</div>
+    </div>
 
-<div class="card">
-<div>Total Promises</div>
-<div id="totalPromises" class="card-number">0</div>
-</div>
+    <div class="card">
+      <div>Completed</div>
+      <div id="completedPromises" class="card-number">0</div>
+    </div>
 
-<div class="card">
-<div>Completed</div>
-<div id="completedPromises" class="card-number">0</div>
-</div>
+    <div class="card">
+      <div>In Progress</div>
+      <div id="activePromises" class="card-number">0</div>
+    </div>
 
-<div class="card">
-<div>In Progress</div>
-<div id="activePromises" class="card-number">0</div>
-</div>
+    <div class="card">
+      <div>Pending</div>
+      <div id="pendingPromises" class="card-number">0</div>
+    </div>
 
-<div class="card">
-<div>Pending</div>
-<div id="pendingPromises" class="card-number">0</div>
-</div>
+  </div>
 
-</div>
+  <h2 class="section-title">
+    Major Promises
+  </h2>
 
-<h2 class="section-title">
-Major Promises
-</h2>
+  <div id="majorPromises"></div>
 
-<div id="majorPromises"></div>
+  <h2 class="section-title">
+    Full Tracker
+  </h2>
 
-<h2 class="section-title">
-Full Tracker
-</h2>
+  <table>
 
-<table>
+    <thead>
+      <tr>
+        <th>Promise</th>
+        <th>Category</th>
+        <th>Status</th>
+        <th>Deadline</th>
+      </tr>
+    </thead>
 
-<thead>
-<tr>
-<th>Promise</th>
-<th>Category</th>
-<th>Status</th>
-<th>Deadline</th>
-</tr>
-</thead>
+    <tbody id="promiseTable"></tbody>
 
-<tbody id="promiseTable"></tbody>
-
-</table>
+  </table>
 
 </div>
 
